@@ -1,17 +1,25 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <component :is="layout">
+       <router-view></router-view>
+    </component>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+const default_layout = "default";
+import MainLaout from "./layouts/main-layout.vue";
+import BlogLayout from "./layouts/BlogLayout.vue";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    'default-layout':MainLaout,
+    'blog-layout':BlogLayout
+  },
+  computed:{
+    layout(){
+      return (this.$route.meta.layout || default_layout) + '-layout'
+    }
   }
 }
 </script>
